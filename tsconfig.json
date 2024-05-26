@@ -18,9 +18,26 @@
       }
     ],
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@/api*": ["./src/pages/api*"],
+      "@/atoms*": ["./src/app/components/atoms*"],
+      "@/molecules*": ["./src/app/components/molecules*"],
+      "@/organisms*": ["./src/app/components/organisms*"],
+      "@/service*": ["./src/app/service*"],
+      "@/contants*": ["./src/app/constants*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-  "exclude": ["node_modules"]
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "src/app/hello.ts"
+  ],
+  "exclude": [
+    "./cypress.config.ts",
+    "node_modules",
+    "cypress",
+    "**/*.cy.ts"
+  ]
 }
