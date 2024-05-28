@@ -14,8 +14,6 @@ const DropdownSelector: FC<DropdownProps> = ({
   initialOption,
   setSelection,
 }) => {
-  console.log(options);
-
   return (
     <Dropdown className="mr-4">
       <Dropdown.Toggle variant="success" id="dropdown-basic">

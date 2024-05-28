@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { fetchTrucks } from '@/services/trucks';
+import ErrorMessage from '@/atoms/errorMessage';
 import Pagination from '@/atoms/pagination';
 import Table from '@/app/components/molecules/table';
 import { responseTrucks, Trucks } from '@/model/trucks.model';
@@ -26,6 +27,8 @@ const TableContainer = () => {
           status,
           searchTerm,
         );
+        console.log(trucksData.items.length);
+        if (trucksData.items.length === 0) return setError('No data found');
         setData(trucksData);
         setError(null);
       } catch (error) {
@@ -42,12 +45,16 @@ const TableContainer = () => {
     setSearchTerm(input);
   };
 
+  const refresh = () => {
+    setStatus('');
+    setFacilityType('');
+    setSearchTerm('');
+  };
+
   return (
     <div>
       {isLoading ? (
         <p>Loading...</p>
-      ) : error ? (
-        <p>{error}</p> // Display error message
       ) : (
         <>
           <FilterBar
@@ -57,7 +64,11 @@ const TableContainer = () => {
             setStatus={setStatus}
             onSearch={onSearch}
           />
-          <Table trucks={items as Trucks[]} />
+          {error ? (
+            <ErrorMessage message={error} onRefresh={refresh} />
+          ) : (
+            <Table trucks={items as Trucks[]} />
+          )}
           <Pagination
             totalPages={totalPages}
             setPage={setPage}
